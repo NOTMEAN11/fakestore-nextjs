@@ -2,23 +2,12 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import Logout from "@/components/logout/Logout";
-
-async function getAdminUser(token: string) {
-  const res = await fetch("http://localhost:3001/api/auth/users", {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-
-  return data;
-}
+import { getAdminUser } from "@/lib/usershandler";
 
 async function BackOffice() {
   const cookieStore = cookies();
   const token = cookieStore.get("token");
   const adminUser = await getAdminUser(token?.value || "");
-
   if (!token) {
     redirect("/backoffice/login");
   }
@@ -32,9 +21,8 @@ async function BackOffice() {
     );
   }
 
-  console.log(adminUser);
   return (
-    <div>
+    <div className="">
       <h1>BackOffice</h1>
       <Logout />
     </div>
