@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
+import { BiLogOut } from "react-icons/bi";
 
 function Logout() {
   const router = useRouter();
@@ -14,7 +15,7 @@ function Logout() {
     console.log(data);
 
     if (data) {
-      router.push("/backoffice/login");
+      router.refresh();
     }
   }
   //   const handleRemoveCookie = () => {
@@ -25,7 +26,15 @@ function Logout() {
   //     Cookies.remove("token");
   //   };
 
-  return <div onClick={handleLogout}>Logout</div>;
+  return (
+    <div
+      onClick={handleLogout}
+      className="flex cursor-pointer items-center gap-2 p-4"
+    >
+      <BiLogOut />
+      Logout
+    </div>
+  );
 }
 
 export default Logout;
